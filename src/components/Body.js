@@ -2,6 +2,8 @@ import {restaurentList} from "../config"
 import  RestaurantCard from "./restaurantCard"
 import {useState, useEffect} from "react";
 import Shimmer from "./ShimmerUI";
+import { Link } from "react-router-dom";
+import useOnLine from "../utils/useOnline";
 
 function filterData(searchInput, restaurants){
     const filterData = restaurants.filter((restaurant) =>restaurant?.info?.name?.toLowerCase()?.includes  (searchInput.toLowerCase()));
@@ -16,6 +18,12 @@ const Body =()=>{
     useEffect(()=>{
         getRestaurants();
     }, [])
+
+    // const isOnLine = useOnLine();
+
+    // if(!isOnLine){
+    //     return <h1>Offline, please check your interet connection!!</h1>
+    // }
 
     async function getRestaurants(){
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING%22");
@@ -45,7 +53,9 @@ const Body =()=>{
             <div className="restaurent-list">
                 {/* {(filteredRestaurants.length === 0)? <h1>No match found!! : null </h1>} */}
                 {filteredRestaurants.map((restaurent) =>{
-                        return <RestaurantCard{...restaurent.info} key={restaurent.info.id}/>;
+                        return(<Link to = {"/restaurant/"+restaurent.info.id} key = {restaurent.info.id}>
+                             <RestaurantCard{...restaurent.info}/>;
+                        </Link>);
                 }
                 )}
 

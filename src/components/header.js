@@ -1,5 +1,8 @@
 import { useState } from "react";
 import {Link} from "react-router-dom";
+import useOnLine from "../utils/useOnline";
+
+
 const loggedInUser = ()=>{
     //API call to check authentication
     return true;
@@ -34,6 +37,7 @@ const Header =()=>{
                     <li className="link">Cart</li>
                 </ul>
             </div>
+            <h1>{useOnLine()? "✅":"🔴"}</h1>
             {(isLoggedIn)?<button onClick={()=>{setIsLoggedIn(false)}}>Logout</button>: <button onClick={()=>{setIsLoggedIn(true)}}>Login</button>}
            
             

@@ -56,3 +56,6 @@ h3{
     text-decoration: none;
     
 }
+.menu{
+    display: flex;
+}
